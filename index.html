@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mis XV · Jade Danae</title>
+<link rel="preload" as="image" href="img/base.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Great+Vibes&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+:root{--fondo:radial-gradient(ellipse at 50% 42%,rgba(60,100,190,.38),transparent 62%),
+    radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(2,8,28,.7)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 4px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.09) 0 1px,transparent 1px 4px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .65 0 0 0 0 1 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    #0b1a3d}
+html{background:#0b1a3d}
+body{min-height:100vh;background:#0b1a3d;font-family:Georgia,serif;color:#e9d9a6}
+body:not(.entro){overflow:hidden}
+#intro{position:fixed;inset:0;z-index:10;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:opacity 1.1s,visibility 1.1s;
+  background:var(--fondo)}
+#cielo{position:fixed;inset:0;pointer-events:none;z-index:0;background:var(--fondo)}
+main{position:relative;z-index:1}
+#intro.fuera{opacity:0;visibility:hidden}
+.astro{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe9a8;opacity:0;animation:titila 4s ease-in-out infinite}
+.escena{position:relative;width:min(94vw,900px);aspect-ratio:2/1;opacity:0;transform:scale(.9);animation:entra 1.4s .2s ease-out forwards,flota 6s 1.6s ease-in-out infinite;filter:drop-shadow(0 28px 30px rgba(0,0,10,.65))}
+.escena img{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.carta{position:absolute;inset:0;animation:rebota 1.3s 1.7s cubic-bezier(.3,.6,.4,1) both}
+.abrir{position:absolute;left:64.4%;top:36.5%;width:21.8%;height:14%;padding:0;border:0;background:none;border-radius:50%/45%;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.brillo{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;opacity:0}
+.brillo::before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 32%,rgba(255,240,190,.2) 40%,rgba(255,248,215,.95) 50%,rgba(255,240,190,.2) 60%,transparent 68%);background-size:260% 100%;background-position:130% 0;mix-blend-mode:screen;animation:pasa 2.6s ease-in-out infinite}
+.listo .abrir{animation:aura 2.2s ease-in-out infinite}
+.listo .brillo{opacity:1;transition:opacity .8s}
+.portada{display:none;position:relative;min-height:100vh;min-height:100svh;max-width:620px;margin:0 auto;overflow:hidden;flex-direction:column;justify-content:flex-end;text-align:center}
+body.entro .portada{display:flex}
+.foto{position:absolute;inset:0 0 auto 0;height:86%;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 7%,#000 60%,transparent 100%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0,#000 7%,#000 60%,transparent 100%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
+.foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%;transform-origin:50% 35%}
+.titulo{position:relative;z-index:2;padding:0 1rem 4.2rem;display:flex;justify-content:center}
+.titulo h1{width:min(94vw,540px);line-height:0;font-size:0}
+.titulo img{width:100%;height:auto;display:block;filter:drop-shadow(0 5px 16px rgba(0,0,20,.75))}
+.titulo>*{opacity:0}
+.bajar{position:absolute;z-index:2;bottom:1.1rem;left:50%;width:14px;height:14px;margin-left:-7px;border:solid #e6b957;border-width:0 2px 2px 0;transform:rotate(45deg);opacity:0}
+body.entro .foto img{animation:zoom 3s ease-out both}
+body.entro .titulo>*{animation:sube 1.4s .8s ease-out both}
+body.entro .bajar{animation:baja 2s 2.6s ease-in-out infinite}
+@keyframes zoom{from{transform:scale(1.14)}to{transform:scale(1)}}
+@keyframes sube{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes baja{0%,100%{opacity:0;transform:translateY(0) rotate(45deg)}50%{opacity:.9;transform:translateY(8px) rotate(45deg)}}
+@media (prefers-reduced-motion:reduce){body.entro .foto img,body.entro .titulo>*,body.entro .bajar{animation:none;opacity:1}}
+@keyframes entra{to{opacity:1;transform:scale(1)}}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(-.35deg)}50%{transform:translateY(-7px) rotate(.35deg)}}
+@keyframes rebota{0%{transform:translateY(0)}35%{transform:translateY(-2.8%)}55%{transform:translateY(-1.4%)}75%{transform:translateY(-2.1%)}100%{transform:translateY(-1.8%)}}
+@keyframes pasa{0%{background-position:130% 0}65%,100%{background-position:-30% 0}}
+@keyframes aura{0%,100%{box-shadow:0 0 0 0 rgba(255,215,120,0)}50%{box-shadow:0 0 22px 6px rgba(255,215,120,.45)}}
+@keyframes titila{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.9;transform:scale(1.3)}}
+@media (prefers-reduced-motion:reduce){.escena{animation:entra .1s forwards}.carta{animation:none;transform:translateY(-1.8%)}.brillo::before,.listo .abrir,.astro{animation:none}}
+/* Fecha, padres y frases */
+.datos{display:none;position:relative;max-width:560px;margin:0 auto;padding:1.5rem 1.5rem 3rem;text-align:center;color:#f1e7c8}
+body.entro .datos{display:block}
+.oro{background:linear-gradient(180deg,#fff0b5 0%,#e8bd58 52%,#b8892d 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.fecha{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:clamp(1.05rem,5vw,1.9rem);letter-spacing:.03em;white-space:nowrap;margin:.4rem 0 3rem;font-variant-numeric:lining-nums}
+.num{font-size:1.45em;line-height:1;letter-spacing:.01em}
+.hora,.cuenta b{font-variant-numeric:lining-nums tabular-nums}
+.rol{font-family:'Great Vibes',cursive;font-size:clamp(2.3rem,10.5vw,3rem);line-height:1.1;color:#f6efd9;text-shadow:0 2px 12px rgba(0,0,20,.5)}
+.cargo{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:clamp(2.6rem,13.5vw,4rem);letter-spacing:.02em;line-height:1.05;margin:.1rem 0 1rem}
+.nombre{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(1.45rem,6.6vw,1.8rem);line-height:1.35}
+.nombre i{display:block;font-weight:400;font-size:1.2rem;color:#d9ad4a}
+.sep{display:block;width:min(62vw,260px);height:24px;margin:2.6rem auto;color:#d9ad4a;overflow:visible}
+.frase{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(1.6rem,7.2vw,2.05rem);line-height:1.35;max-width:22em;margin:0 auto}
+.arco{width:min(80vw,380px);margin:2.4rem auto;padding:9px;border:1.5px solid #d9ad4a;border-radius:999px 999px 8px 8px;box-shadow:0 18px 40px rgba(0,0,20,.45)}
+.arco-foto{position:relative;aspect-ratio:3/4;border-radius:999px 999px 3px 3px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 72% 18%,rgba(255,226,140,.55),transparent 17%),linear-gradient(160deg,#17408f,#0f6b78 72%,#0b3d4a)}
+.arco-foto span{font-family:'Great Vibes',cursive;font-size:2rem;color:#f1e7c8}
+.arco-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:48% 40%}
+/* Ceremonia, recepción y dress code */
+.lugares{padding-top:0;padding-bottom:3rem}
+.foto3{padding-top:0}
+.regalos-sec{padding-bottom:3rem}
+.confirmar{padding-bottom:7rem}
+.evento{display:flex;flex-direction:column;align-items:center}
+.icono{width:min(46vw,190px);height:auto;display:block;filter:drop-shadow(0 8px 16px rgba(0,0,20,.55))}
+.evento h2{font-family:'Great Vibes',cursive;font-weight:400;font-size:clamp(2.5rem,11.5vw,3.3rem);line-height:1.15;margin:.8rem 0 .2rem;padding:0 .15em .14em}
+.hora{font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:clamp(1.6rem,7.4vw,2rem);letter-spacing:.02em;color:#f6efd9}
+.lugar{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(1.35rem,6.2vw,1.65rem);letter-spacing:.05em;text-transform:uppercase;color:#e6b957;margin-top:.9rem;max-width:17em;line-height:1.3}
+.dir{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(1.3rem,6vw,1.55rem);line-height:1.35;margin-top:.2rem;max-width:18em}
+.btn{display:inline-block;margin-top:1.5rem;padding:.8rem 2.3rem;border:1.5px solid #d9ad4a;border-radius:12px;background:rgba(255,255,255,.04);color:#e6b957;font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;letter-spacing:.02em;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .25s,color .25s}
+.btn:hover,.btn:focus-visible{background:#d9ad4a;color:#0b1a3d;outline:none}
+.btn:focus-visible{box-shadow:0 0 0 3px rgba(230,185,87,.45)}
+.linea{width:0;height:76px;margin:2rem auto;border-left:2px dotted #d9ad4a;opacity:.7}
+/* Cuenta regresiva y mesa de regalos */
+.cuenta{display:flex;justify-content:center;align-items:flex-start;gap:.15rem;margin-top:1.6rem;font-family:'Playfair Display',Georgia,serif}
+.cuenta .u{min-width:4.3rem}
+.cuenta b{display:block;font-weight:500;font-size:clamp(2.5rem,12vw,3.5rem);line-height:1.1;font-variant-numeric:tabular-nums}
+.cuenta small{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;letter-spacing:.04em;color:#d9ad4a;margin-top:.2rem}
+.cuenta .dp{font-size:clamp(2.1rem,10vw,3rem);line-height:1.2;color:#d9ad4a;opacity:.7}
+.regalos{max-width:440px;margin:0 auto;padding:2.6rem 1.4rem;border:1.5px solid #d9ad4a;background:rgba(255,255,255,.035)}
+.regalos .cargo{margin-bottom:1.2rem}
+.texto{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(1.4rem,6.4vw,1.65rem);line-height:1.4;max-width:20em;margin:0 auto}
+.regalos .icono{margin:1.8rem auto 0}
+.regalos .icono.sobre-ico{width:min(66vw,280px)}
+.regalos .icono.sobre-ico{transform-origin:50% 100%;animation:salto 2.4s ease-in-out infinite}
+@keyframes salto{0%,45%,100%{transform:translateY(0) scale(1,1)}10%{transform:translateY(0) scale(1.06,.92)}22%{transform:translateY(-26px) scale(.97,1.04)}34%{transform:translateY(0) scale(1.05,.94)}40%{transform:translateY(-9px) scale(1,1)}}
+@media (prefers-reduced-motion:reduce){.regalos .icono.sobre-ico{animation:none}}
+.nota{margin-top:.9rem;font-size:clamp(1.55rem,7.2vw,1.9rem);line-height:1.3;color:#fff;font-style:italic;max-width:16em}
+.btn-wa{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.6rem;padding:.95rem 2rem;border-radius:14px;background:linear-gradient(180deg,#f0c968,#d9ad4a);border:1.5px solid #d9ad4a;color:#0b1a3d;font-weight:500;font-size:1.15rem}
+.btn-wa svg{width:1.5rem;height:1.5rem;flex:none}
+/* Botón de música (fijo en todas las pantallas) */
+.musica{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;z-index:30;width:46px;height:46px;padding:0;border-radius:50%;border:1.5px solid #d9ad4a;background:rgba(11,26,61,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#e6b957;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 4px 14px rgba(0,0,20,.45);transition:background .25s,color .25s}
+.musica svg{width:22px;height:22px}
+.musica .si{display:none}
+.musica.on .si{display:block}
+.musica.on .no{display:none}
+.musica.on{background:#d9ad4a;color:#0b1a3d}
+.musica:not(.on){animation:invita 2.8s ease-in-out infinite}
+.musica:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@keyframes invita{0%,100%{box-shadow:0 4px 14px rgba(0,0,20,.45),0 0 0 0 rgba(230,185,87,0)}50%{box-shadow:0 4px 14px rgba(0,0,20,.45),0 0 0 9px rgba(230,185,87,.2)}}
+@media (prefers-reduced-motion:reduce){.musica:not(.on){animation:none}}
+
+.btn-wa:hover,.btn-wa:focus-visible{background:#f6dc95;color:#0b1a3d}
+
+
+
+@media (min-width:900px){
+ .portada{max-width:1280px;flex-direction:row;align-items:center;justify-content:center}
+ .foto{position:relative;inset:auto;order:2;flex:0 0 46%;height:100vh;height:100svh;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 24%,#000 90%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 6%,#000 82%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 24%,#000 90%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 6%,#000 82%,transparent 100%)}
+ .foto img{object-position:50% 20%}
+ .titulo{order:1;flex:1 1 54%;padding:2rem 1rem 2rem 3rem}
+ .titulo h1{width:min(100%,720px)}
+}
+</style>
+</head>
+<body>
+
+<audio id="musica-audio" src="audio/musica.mp3" loop preload="auto"></audio>
+<button class="musica" id="musica" type="button" aria-label="Activar música" aria-pressed="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><g class="si" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.3 5.8a9 9 0 010 12.4"/></g><g class="no" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg>
+</button>
+
+<div id="cielo" aria-hidden="true"></div>
+
+<div id="intro">
+  <div class="escena">
+    <img src="img/base.webp" alt="Sobre turquesa abierto con la invitación de Mis XV Años de Jade Danae">
+    <div class="carta">
+      <img src="img/tarjeta.webp" alt="">
+      <button class="abrir" id="entrar" aria-label="Abrir invitación"><span class="brillo"></span></button>
+    </div>
+    <img src="img/frente.webp" alt="">
+  </div>
+</div>
+
+<main>
+  <section class="portada">
+    <div class="foto"><img src="img/portada.webp" alt="Jade Danae"></div>
+    <div class="titulo">
+      <h1><img src="img/titulo.webp" alt="Mis XV Años · Jade Danae"></h1>
+    </div>
+    <div class="bajar" aria-hidden="true"></div>
+  </section>
+
+  <section class="datos">
+    <!-- ✏️ Cambia aquí la fecha, los nombres y las frases -->
+    <p class="fecha oro"><span class="num">29</span> DE ENERO DE <span class="num">2027</span></p>
+
+    <p class="rol">Con el amor de mi</p>
+    <h2 class="cargo oro">MADRE</h2>
+    <p class="nombre">Claudia Miriam Nieto Hernández</p>
+
+    <svg class="sep" viewBox="0 0 240 24" aria-hidden="true"><path d="M2 12H98M142 12H238" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/><path d="M120 1l3.2 7.8L131 12l-7.8 3.2L120 23l-3.2-7.8L109 12l7.8-3.2z" fill="currentColor"/><circle cx="104" cy="12" r="1.7" fill="currentColor"/><circle cx="136" cy="12" r="1.7" fill="currentColor"/></svg>
+
+    <p class="rol">Con el amor de mis</p>
+    <h2 class="cargo oro">ABUELOS</h2>
+    <p class="nombre">Irene Hernández Cano<i>y</i>Santiago Nieto Sánchez</p>
+
+    <svg class="sep" viewBox="0 0 240 24" aria-hidden="true"><path d="M2 12H98M142 12H238" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/><path d="M120 1l3.2 7.8L131 12l-7.8 3.2L120 23l-3.2-7.8L109 12l7.8-3.2z" fill="currentColor"/><circle cx="104" cy="12" r="1.7" fill="currentColor"/><circle cx="136" cy="12" r="1.7" fill="currentColor"/></svg>
+
+    <p class="rol">y el cariño de mis</p>
+    <h2 class="cargo oro">PADRINOS</h2>
+    <p class="nombre">Jonathan Martínez Ramírez<i>y</i>Norma Angélica Martínez Ramírez</p>
+
+    <svg class="sep" viewBox="0 0 240 24" aria-hidden="true"><path d="M2 12H98M142 12H238" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/><path d="M120 1l3.2 7.8L131 12l-7.8 3.2L120 23l-3.2-7.8L109 12l7.8-3.2z" fill="currentColor"/><circle cx="104" cy="12" r="1.7" fill="currentColor"/><circle cx="136" cy="12" r="1.7" fill="currentColor"/></svg>
+
+    <p class="frase">“Nos encantaría que nos acompañes en este momento tan especial”</p>
+
+    <figure class="arco">
+      <div class="arco-foto"><span>Foto 2</span><img src="img/foto2.webp" alt="Jade Danae" loading="lazy" onerror="this.remove()"></div>
+    </figure>
+
+    <p class="frase">“Hoy doy gracias a Dios por regalarme la vida y poder celebrar con mi familia y amigos mis XV años, el comienzo de otra etapa.”</p>
+
+  </section>
+
+  <section class="datos lugares">
+    <!-- ✏️ Hora, lugar, dirección y link de mapa de cada evento -->
+    <article class="evento">
+      <img class="icono" src="img/iglesia.webp" alt="" loading="lazy">
+      <h2 class="oro">Ceremonia religiosa</h2>
+      <p class="hora">6:00 P.M.</p>
+      <p class="lugar">Parroquia María Auxiliadora Ramos Millán</p>
+      <p class="dir">Iztacalco, Ciudad de México</p>
+      <a class="btn" href="https://maps.app.goo.gl/Y9BUfLWyaJUwNeDdA?g_st=ac" target="_blank" rel="noopener">Ver ubicación</a>
+    </article>
+
+    <div class="linea" aria-hidden="true"></div>
+
+    <article class="evento">
+      <img class="icono" src="img/copas.webp" alt="" loading="lazy">
+      <h2 class="oro">Recepción</h2>
+      <p class="hora">7:30 P.M.</p>
+      <p class="lugar">Salón de eventos Gran Gala</p>
+      <a class="btn" href="https://maps.app.goo.gl/4bK2PrzG9JtVXZNq9" target="_blank" rel="noopener">Ver ubicación</a>
+    </article>
+
+    <div class="linea" aria-hidden="true"></div>
+
+    <article class="evento">
+      <img class="icono" src="img/dress.webp" alt="" loading="lazy">
+      <h2 class="oro">Dress code</h2>
+      <p class="hora">Formal</p>
+      <p class="texto nota">Se reserva el color verde para la quinceañera</p>
+    </article>
+  </section>
+
+  <section class="datos foto3">
+    <svg class="sep" viewBox="0 0 240 24" aria-hidden="true"><path d="M2 12H98M142 12H238" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/><path d="M120 1l3.2 7.8L131 12l-7.8 3.2L120 23l-3.2-7.8L109 12l7.8-3.2z" fill="currentColor"/><circle cx="104" cy="12" r="1.7" fill="currentColor"/><circle cx="136" cy="12" r="1.7" fill="currentColor"/></svg>
+    <figure class="arco">
+      <div class="arco-foto"><span>Foto 3</span><img src="img/foto3.webp" alt="Jade Danae" loading="lazy" style="object-position:52% 50%" onerror="this.remove()"></div>
+    </figure>
+  </section>
+
+  <section class="datos">
+    <p class="rol">¡Cada vez falta menos!</p>
+    <div class="cuenta" role="timer" aria-label="Tiempo que falta para la fiesta">
+      <div class="u"><b class="oro" id="cd-d">0</b><small>días</small></div><span class="dp">:</span>
+      <div class="u"><b class="oro" id="cd-h">00</b><small>horas</small></div><span class="dp">:</span>
+      <div class="u"><b class="oro" id="cd-m">00</b><small>minutos</small></div><span class="dp">:</span>
+      <div class="u"><b class="oro" id="cd-s">00</b><small>segundos</small></div>
+    </div>
+  </section>
+
+  <section class="datos regalos-sec">
+    <div class="regalos">
+      <p class="texto">Si gustas obsequiarme algo, puedes elegir el regalo que desees o si lo prefieres, tendremos lluvia de sobres. ¡Cualquier detalle será recibido con mucho cariño!</p>
+      <img class="icono sobre-ico" src="img/sobre-icono.webp" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <section class="datos confirmar">
+    <!-- ✏️ Para cambiar el número de WhatsApp, edita el número dentro del link (525643153847) -->
+    <p class="rol">Favor de confirmar asistencia</p>
+    <a class="btn btn-wa" href="https://wa.me/525643153847?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20los%20XV%20a%C3%B1os%20de%20Jade%20Danae.%20Mi%20nombre%20es%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Confirmar por WhatsApp</a>
+  </section>
+</main>
+
+<script>
+const intro = document.getElementById("intro");
+function estrellas(c, n) {
+  for (let i = 0; i < n; i++) {
+    const e = document.createElement("i");
+    e.className = "astro";
+    e.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${(Math.random()*4).toFixed(2)}s;animation-duration:${(3+Math.random()*3).toFixed(2)}s`;
+    c.appendChild(e);
+  }
+}
+estrellas(intro, 36);
+estrellas(document.getElementById("cielo"), 45);
+setTimeout(() => intro.classList.add("listo"), 3000);
+document.getElementById("entrar").addEventListener("click", () => {
+  intro.classList.add("fuera");
+  document.body.classList.add("entro");
+  setTimeout(() => intro.remove(), 1200);
+});
+
+/* Al confirmar por WhatsApp: se abre el chat y la invitación se cierra, regresando al inicio (sobre cerrado) */
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+document.querySelector(".btn-wa").addEventListener("click", () => {
+  setTimeout(() => { window.scrollTo(0, 0); location.reload(); }, 1500);
+});
+
+/* Cuenta regresiva: 29 de enero de 2027, 6:00 P.M. (hora de Ciudad de México) */
+const meta = new Date("2027-01-29T18:00:00-06:00").getTime();
+const dos = n => String(n).padStart(2, "0");
+function tic() {
+  let t = Math.max(0, meta - Date.now());
+  const d = Math.floor(t / 864e5); t %= 864e5;
+  const h = Math.floor(t / 36e5); t %= 36e5;
+  const m = Math.floor(t / 6e4), seg = Math.floor((t % 6e4) / 1e3);
+  document.getElementById("cd-d").textContent = d;
+  document.getElementById("cd-h").textContent = dos(h);
+  document.getElementById("cd-m").textContent = dos(m);
+  document.getElementById("cd-s").textContent = dos(seg);
+}
+tic(); setInterval(tic, 1000);
+
+/* Música: intenta sonar al abrir el link; si el navegador lo bloquea, empieza con el primer toque. El botón la pausa o la reactiva. */
+const audio = document.getElementById("musica-audio"), botonM = document.getElementById("musica");
+let pausaManual = false;
+function marcarM(on) {
+  botonM.classList.toggle("on", on);
+  botonM.setAttribute("aria-pressed", on);
+  botonM.setAttribute("aria-label", on ? "Pausar música" : "Activar música");
+}
+botonM.addEventListener("click", () => {
+  if (audio.paused) { pausaManual = false; audio.play().then(() => marcarM(true)).catch(() => marcarM(false)); }
+  else { pausaManual = true; audio.pause(); marcarM(false); }
+});
+audio.addEventListener("play", () => marcarM(true));
+audio.addEventListener("pause", () => marcarM(false));
+const gestos = ["pointerup", "touchend", "click", "keydown"];
+function iniciarMusica(ev) {
+  if (ev && ev.target && ev.target.closest && ev.target.closest("#musica")) return; // el botón se encarga solo
+  if (pausaManual || !audio.paused) return;
+  audio.play().then(() => gestos.forEach(g => document.removeEventListener(g, iniciarMusica))).catch(() => {});
+}
+iniciarMusica();                                            // 1) intenta sonar apenas abre el link
+gestos.forEach(g => document.addEventListener(g, iniciarMusica)); // 2) si el navegador lo bloquea, suena con el primer toque
+</script>
+</body>
+</html>
